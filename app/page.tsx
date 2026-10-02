@@ -1,69 +1,113 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Link from "next/link";
 
-export default function Home() {
+const categories = [
+  {
+    title: "Daily essentials",
+    description: "Easy layers built for all-day comfort.",
+    image:
+      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    title: "Outerwear",
+    description: "Lightweight layers with a polished finish.",
+    image:
+      "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    title: "Accessories",
+    description: "Small details that complete every look.",
+    image:
+      "https://images.unsplash.com/photo-1521369909026-2afc1c0d4f2d?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    title: "Footwear",
+    description: "A grounded feel, elevated by movement.",
+    image:
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=80",
+  },
+];
+
+const highlights = [
+  {
+    title: "Designed for comfort",
+    text: "Soft-touch fabrics that move with your routine.",
+  },
+  {
+    title: "Premium everyday",
+    text: "Simple silhouettes that still feel elevated.",
+  },
+  {
+    title: "Fast dispatch",
+    text: "Orders leave our studio in under 48 hours.",
+  },
+];
+
+export default function HomePage() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>
-            To get started, edit the{" "}
-            <code className={styles.code}>page.tsx</code> file.
-          </h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
+    <div className="pageShell">
+      <div className="container">
+        <section className="heroSection">
+          <div className="heroContent">
+            <span className="eyebrow">Fresh daily edits</span>
+            <h1>Made for every day, for everyone.</h1>
+            <p>
+              Thoughtful essentials for movement, comfort, and everyday
+              confidence — from city mornings to slow weekends.
+            </p>
+            <div className="heroButtons">
+              <Link href="/shop" className="pillButton primary">
+                Shop now
+              </Link>
+              <Link href="/about" className="pillButton secondary">
+                Learn more
+              </Link>
+            </div>
+          </div>
+
+          <div className="heroVisual">
+            <img
+              src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1200&q=80"
+              alt="Broadr lifestyle fashion"
             />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+            <div className="floatingTag">
+              <span>New drop</span>
+              <strong>Spring / Summer 2026</strong>
+            </div>
+          </div>
+        </section>
+
+        <section className="featureGrid">
+          {highlights.map((item) => (
+            <article key={item.title} className="featureCard">
+              <span className="eyebrow">Better living</span>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </article>
+          ))}
+        </section>
+
+        <section className="pageShell" style={{ paddingTop: 24 }}>
+          <div className="introRow">
+            <div>
+              <span className="eyebrow">Browse categories</span>
+              <h1>Everything you need, in one place.</h1>
+            </div>
+            <Link href="/shop" className="pillButton secondary">
+              Shop all
+            </Link>
+          </div>
+
+          <div className="categoryGrid">
+            {categories.map((category) => (
+              <article key={category.title} className="categoryCard">
+                <img src={category.image} alt={category.title} />
+                <h3>{category.title}</h3>
+                <p>{category.description}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      </div>
     </div>
   );
 }
