@@ -4,10 +4,21 @@ import Link from "next/link";
 import { useState } from "react";
 import { supabase } from "@/lib/supabase";
 
+const FALLBACK_APP_URL = "https://hng-broadr.onrender.com";
+
 const getRedirectUrl = () => {
   const configuredSiteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || window.location.origin;
-  return new URL("/auth/callback", configuredSiteUrl).toString();
+    process.env.NEXT_PUBLIC_SITE_URL || FALLBACK_APP_URL;
+
+  try {
+    const url = new URL(configuredSiteUrl);
+    if (url.hostname === "localhost" || url.hostname === "127.0.0.1") {
+      return new URL("/auth/callback", FALLBACK_APP_URL).toString();
+    }
+    return new URL("/auth/callback", url.origin).toString();
+  } catch {
+    return new URL("/auth/callback", FALLBACK_APP_URL).toString();
+  }
 };
 
 export default function SignUpPage() {
