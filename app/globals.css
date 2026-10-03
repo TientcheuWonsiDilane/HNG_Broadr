@@ -261,7 +261,7 @@ main {
 }
 
 .eyebrow {
-  display: inline-block;
+  display: block;
   margin-bottom: 18px;
   padding: 8px 12px;
   border-radius: 999px;
@@ -279,9 +279,9 @@ main {
 .checkoutPanel h1,
 .sectionHeading,
 .introRow h1 {
-  margin: 0 0 16px;
+  margin: 0 0 10px;
   font-family: var(--font-heading);
-  font-size: clamp(3.3rem, 5vw, 5.6rem);
+  font-size: clamp(3rem, 4vw, 5rem);
   line-height: 0.88;
   letter-spacing: -0.05em;
   color: var(--green-900);
