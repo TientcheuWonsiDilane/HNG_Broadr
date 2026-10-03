@@ -16,6 +16,7 @@ export function SiteHeader() {
   const router = useRouter();
   const [user, setUser] = useState<SessionUser | null>(null);
   const [cartCount, setCartCount] = useState(0);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const syncState = () => {
@@ -91,9 +92,12 @@ export function SiteHeader() {
     localStorage.removeItem("broadr_cart");
     setUser(null);
     setCartCount(0);
+    setMobileMenuOpen(false);
     window.dispatchEvent(new Event("broadr-state-change"));
     router.push("/");
   };
+
+  const closeMobileMenu = () => setMobileMenuOpen(false);
 
   return (
     <header className="siteHeader">
@@ -103,56 +107,82 @@ export function SiteHeader() {
           <span>Broadr</span>
         </Link>
 
-        <nav className="mainNav" aria-label="Main navigation">
-          <Link
-            href="/"
-            className={pathname === "/" ? "navLink active" : "navLink"}>
-            Home
-          </Link>
-          <Link
-            href="/shop"
-            className={
-              pathname.startsWith("/shop") ? "navLink active" : "navLink"
-            }>
-            Shop
-          </Link>
-          <Link
-            href="/about"
-            className={pathname === "/about" ? "navLink active" : "navLink"}>
-            About
-          </Link>
-          <Link
-            href="/orders"
-            className={pathname === "/orders" ? "navLink active" : "navLink"}>
-            Orders
-          </Link>
-        </nav>
+        <button
+          type="button"
+          className="menuToggle"
+          aria-label="Toggle navigation"
+          aria-expanded={mobileMenuOpen}
+          onClick={() => setMobileMenuOpen((open) => !open)}>
+          <span />
+          <span />
+          <span />
+        </button>
 
-        <div className="headerActions">
-          <Link href="/shop" className="navLink cartPill">
-            Cart ({cartCount})
-          </Link>
+        <div className={`headerMenu ${mobileMenuOpen ? "open" : ""}`}>
+          <nav className="mainNav" aria-label="Main navigation">
+            <Link
+              href="/"
+              className={pathname === "/" ? "navLink active" : "navLink"}
+              onClick={closeMobileMenu}>
+              Home
+            </Link>
+            <Link
+              href="/shop"
+              className={
+                pathname.startsWith("/shop") ? "navLink active" : "navLink"
+              }
+              onClick={closeMobileMenu}>
+              Shop
+            </Link>
+            <Link
+              href="/about"
+              className={pathname === "/about" ? "navLink active" : "navLink"}
+              onClick={closeMobileMenu}>
+              About
+            </Link>
+            <Link
+              href="/orders"
+              className={pathname === "/orders" ? "navLink active" : "navLink"}
+              onClick={closeMobileMenu}>
+              Orders
+            </Link>
+          </nav>
 
-          {user ? (
-            <>
-              <span className="userBadge">{user.name}</span>
-              <button
-                type="button"
-                className="pillButton secondary"
-                onClick={handleLogout}>
-                Logout
-              </button>
-            </>
-          ) : (
-            <>
-              <Link href="/signin" className="pillButton primary">
-                Sign in
-              </Link>
-              <Link href="/signup" className="pillButton secondary">
-                Sign up
-              </Link>
-            </>
-          )}
+          <div className="headerActions">
+            <Link
+              href="/shop"
+              className="navLink cartPill"
+              onClick={closeMobileMenu}>
+              Cart ({cartCount})
+            </Link>
+
+            {user ? (
+              <>
+                <span className="userBadge">{user.name}</span>
+                <button
+                  type="button"
+                  className="pillButton secondary"
+                  onClick={handleLogout}>
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/signin"
+                  className="pillButton primary"
+                  onClick={closeMobileMenu}>
+                  Sign in
+                </Link>
+                <Link
+                  href="/signup"
+                  className="pillButton secondary"
+                  onClick={closeMobileMenu}>
+                  Sign up
+                </Link>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </header>

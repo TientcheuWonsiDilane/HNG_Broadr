@@ -31,6 +31,7 @@ export default function ShopPage() {
     email: string;
   } | null>(null);
   const [cart, setCart] = useState<CartEntry[]>([]);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     const syncState = () => {
@@ -143,7 +144,18 @@ export default function ShopPage() {
   return (
     <div className="pageShell">
       <div className="container storefrontLayout">
-        <aside className="sidebarPanel">
+        <button
+          type="button"
+          className="sidebarToggle"
+          aria-label="Toggle sidebar"
+          aria-expanded={isSidebarOpen}
+          onClick={() => setIsSidebarOpen((open) => !open)}>
+          <span />
+          <span />
+          <span />
+        </button>
+
+        <aside className={`sidebarPanel ${isSidebarOpen ? "isOpen" : ""}`}>
           <div className="sidebarHeader">
             <h3>Broadr menu</h3>
           </div>
@@ -207,7 +219,10 @@ export default function ShopPage() {
                   className={
                     selectedCategory === category ? "tagActive" : "tagButton"
                   }
-                  onClick={() => setSelectedCategory(category)}>
+                  onClick={() => {
+                    setSelectedCategory(category);
+                    setIsSidebarOpen(false);
+                  }}>
                   {category}
                 </button>
               ))}

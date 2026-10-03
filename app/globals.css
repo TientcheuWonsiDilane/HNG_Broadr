@@ -85,6 +85,29 @@ main {
   justify-content: space-between;
   gap: 20px;
   min-height: 82px;
+  position: relative;
+}
+
+.menuToggle,
+.sidebarToggle {
+  display: none;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  width: 46px;
+  height: 46px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.menuToggle span,
+.sidebarToggle span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: currentColor;
+  border-radius: 999px;
+  margin: 5px 0;
 }
 
 .brandMarkWrap {
@@ -134,6 +157,14 @@ main {
   align-items: center;
   gap: 12px;
   flex-wrap: wrap;
+}
+
+.headerMenu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex: 1;
 }
 
 .pillButton,
@@ -749,7 +780,6 @@ main {
 }
 
 @media (max-width: 980px) {
-  .headerRow,
   .heroSection,
   .storefrontLayout,
   .sectionLayout,
@@ -759,20 +789,78 @@ main {
   }
 
   .headerRow {
-    display: grid;
-    justify-content: stretch;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 16px 0;
+  }
+
+  .menuToggle {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+  }
+
+  .headerMenu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    right: 0;
+    background: rgba(15, 42, 34, 0.96);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 18px;
+    padding: 18px;
+    z-index: 60;
+  }
+
+  .headerMenu.open {
+    display: grid;
+    gap: 16px;
   }
 
   .mainNav,
   .headerActions {
     flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .mainNav {
+    display: grid;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .headerActions {
+    display: grid;
+    gap: 10px;
   }
 
   .featureGrid,
   .categoryGrid,
   .productGridShop {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .storefrontLayout {
+    display: block;
+  }
+
+  .sidebarToggle {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    color: var(--green-900);
+    margin-bottom: 18px;
+  }
+
+  .sidebarPanel {
+    display: none;
+  }
+
+  .sidebarPanel.isOpen {
+    display: flex;
   }
 }
 
