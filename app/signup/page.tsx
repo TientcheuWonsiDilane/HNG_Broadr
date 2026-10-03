@@ -87,15 +87,6 @@ export default function SignUpPage() {
     <div className="pageShell">
       <div className="container authLayout">
         <div className="authCard">
-          <div className="authBrandHeader">
-            <Link
-              href="/"
-              className="brandMarkWrap authBrand"
-              aria-label="Go to home page">
-              <div className="brandMark">B</div>
-              <span>Broadr</span>
-            </Link>
-          </div>
 
           <div className="authContent">
             <span className="eyebrow">Join us</span>
